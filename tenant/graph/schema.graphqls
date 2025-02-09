@@ -1,0 +1,12 @@
+scalar UUID
+
+type Tenant @key(fields: "id") {
+  id: UUID!
+  name: String!
+  number: String!
+  active: Boolean!
+}
+
+type Query {
+  tenants: [Tenant!]!
+}

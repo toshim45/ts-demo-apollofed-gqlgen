@@ -1,0 +1,1052 @@
+query ProductPage($where: product_product_bool_exp, $limit: Int, $offset: Int, $order_by: [product_product_order_by!]) {
+  product_product(
+    where: $where
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+  ) {
+    id
+    name
+    status
+    sku
+    image_url
+    type
+    category_id
+    tenant {
+      id
+      name
+      number
+      __typename
+    }
+    uom {
+      id
+      uom_standard_id
+      conversion_uom_id
+      conversion_ratio
+      dimension
+      dimension_width
+      dimension_length
+      dimension_height
+      dimension_uom
+      weight
+      weight_uom
+      uom_standard {
+        id
+        number
+        name
+        __typename
+      }
+      __typename
+    }
+    serial_number_management
+    shelf_life_management
+    lot_management
+    uom_conversion_management
+    __typename
+  }
+}
+
+-----
+
+
+{
+  "limit": 20,
+  "offset": 0,
+  "order_by": [
+    {
+      "company_id": "asc"
+    },
+    {
+      "sku": "asc"
+    }
+  ],
+  "where": {}
+}
+
+
+
+-------
+
+
+{
+  "data": {
+    "product_product": [
+      {
+        "id": "f5713adf-3b1f-4839-9b41-54aec5b69fc9",
+        "name": "Luna Bright Brightening Serum Concentrate II",
+        "status": "draft",
+        "sku": "2243-8899",
+        "image_url": "",
+        "type": "bundle",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "8189f6aa-0d53-4362-bf29-f141e5a09438",
+          "name": "Jafra",
+          "number": "JFR",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "cbd2cae7-20e5-4f52-9a20-bdd34584bd49",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 1,
+            "dimension": 125,
+            "dimension_width": 5,
+            "dimension_length": 5,
+            "dimension_height": 5,
+            "dimension_uom": "cm",
+            "weight": 250,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "enabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "f4ac9ca4-e09a-11ec-ad54-4201c0a85810",
+        "name": "",
+        "status": "active",
+        "sku": "",
+        "image_url": "https://ecs7.tokopedia.net/img/cache/300/hDjmkQ/2020/11/25/684933ee-93b7-4bac-8240-3064246b30b7.png",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": null,
+        "uom": [
+          {
+            "id": "3aaa0faf-eb06-4e7b-bd11-3d23bad005f1",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": "e2156536-12ba-4b85-b5ce-c7593151fd7d",
+            "conversion_ratio": 0,
+            "dimension": 1,
+            "dimension_width": 1,
+            "dimension_length": 1,
+            "dimension_height": 1,
+            "dimension_uom": "cm",
+            "weight": 1,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "c4ff6c32-2d95-4085-bc5f-fe3dca37f99c",
+        "name": "TestSN",
+        "status": "active",
+        "sku": "00000000",
+        "image_url": "",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "9a371013-4f4b-49f0-a3da-15503974f5f3",
+          "name": "Test - Training A",
+          "number": "TRNA",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "1ac7e4ff-ccd4-48ba-b143-51a6d5c04e97",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 250,
+            "dimension_width": 5,
+            "dimension_length": 10,
+            "dimension_height": 5,
+            "dimension_uom": "cm",
+            "weight": 20,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "enabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "enabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "f4ac9ddb-e09a-11ec-ad54-4201c0a85810",
+        "name": "Lego Classic",
+        "status": "active",
+        "sku": "000001",
+        "image_url": "NULL",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": null,
+        "uom": [
+          {
+            "id": "d847ea11-a15b-4c18-9a2f-bd8282f34268",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": "e2156536-12ba-4b85-b5ce-c7593151fd7d",
+            "conversion_ratio": 0,
+            "dimension": 1200,
+            "dimension_width": 20,
+            "dimension_length": 10,
+            "dimension_height": 6,
+            "dimension_uom": "cm",
+            "weight": 100,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "f4ac9ef1-e09a-11ec-ad54-4201c0a85810",
+        "name": "Tote bag So Yumie Gelas",
+        "status": "active",
+        "sku": "0000011",
+        "image_url": "NULL",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": null,
+        "uom": [
+          {
+            "id": "03bd1547-1f87-44e0-b7c4-8f330c25d672",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": "e2156536-12ba-4b85-b5ce-c7593151fd7d",
+            "conversion_ratio": 0,
+            "dimension": 0,
+            "dimension_width": 0,
+            "dimension_length": 0,
+            "dimension_height": 0,
+            "dimension_uom": "cm",
+            "weight": 0,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "85c34012-4e17-11ee-8739-4201c0a8580d",
+        "name": "Temporary - Oma Elly Pasta Lasagna 250 gram - update",
+        "status": "active",
+        "sku": "000001T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "958bbeac-fa09-488c-a6df-f231d67c464b",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000,
+            "dimension_width": 10,
+            "dimension_length": 10,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "85c3e7cd-4e17-11ee-8739-4201c0a8580d",
+        "name": "Temporary - Oma Elly Dessert Cake Classic Cheese 250 gram",
+        "status": "active",
+        "sku": "000002T",
+        "image_url": "https://ik.imagekit.io/fuc2y2udeit/image__9__YToTXtVew.png",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "da60b35e-219a-4b52-8e2e-fa0d11d5e13b",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000,
+            "dimension_width": 10,
+            "dimension_length": 10,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d5b1edb-4c62-11ee-8739-4201c0a8580d",
+        "name": "Temporary - Oma Elly Dessert Tiramisu 250 gram",
+        "status": "active",
+        "sku": "000003T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "8158585d-ea47-4272-8263-c7c90eb5040a",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000000,
+            "dimension_width": 100,
+            "dimension_length": 100,
+            "dimension_height": 100,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d59ce2f-4c62-11ee-8739-4201c0a8580d",
+        "name": "Temporary - TUKUCUR Teh Kemasan Remon (Sereh & Lemon) Botol 1 liter",
+        "status": "active",
+        "sku": "000004T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "1825db5d-7b46-4ffc-a344-83409b82b635",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000000,
+            "dimension_width": 100,
+            "dimension_length": 100,
+            "dimension_height": 100,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d59b1b9-4c62-11ee-8739-4201c0a8580d",
+        "name": "Temporary - TUKUCUR Kopi Kemasan Espresso Cair Botol 50 ml",
+        "status": "active",
+        "sku": "000005T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "0d60fbc5-f1d1-4a16-b51e-2b8930117f8a",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000000,
+            "dimension_width": 100,
+            "dimension_length": 100,
+            "dimension_height": 100,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d5a3cfe-4c62-11ee-8739-4201c0a8580d",
+        "name": "Temporary - TUKUCUR Kopi Kemasan Kopi Susu Tetangga Botol 1 liter",
+        "status": "active",
+        "sku": "000006T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "3a23e074-4cf9-4f11-90a0-0cacb8bd35f4",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 31920,
+            "dimension_width": 56,
+            "dimension_length": 57,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d5a5970-4c62-11ee-8739-4201c0a8580d",
+        "name": "Temporary - Bittersweet by Najla Dessert Turkish Box 250 gram",
+        "status": "active",
+        "sku": "000007T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "43f4bac5-e0c3-4666-84fd-1544b62e3427",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000000,
+            "dimension_width": 100,
+            "dimension_length": 100,
+            "dimension_height": 100,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "85c33e2c-4e17-11ee-8739-4201c0a8580d",
+        "name": "Temporary - Bittersweet by Najla Dessert Tiramisu Box 250 gram",
+        "status": "active",
+        "sku": "000008T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "94d72832-6e98-4d8e-8d42-35109c627cc7",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000,
+            "dimension_width": 10,
+            "dimension_length": 10,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d59b8d1-4c62-11ee-8739-4201c0a8580d",
+        "name": "Pocky Coconut Brown Sugar Freebies",
+        "status": "active",
+        "sku": "000009F",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "0fa2ec5c-10ec-42df-a439-72a02d8cdc88",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000000,
+            "dimension_width": 100,
+            "dimension_length": 100,
+            "dimension_height": 100,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "eb5e59ce-0688-11ee-b6fe-4201c0a85803",
+        "name": "Pocky Coconut Brown Sugar Freebies",
+        "status": "active",
+        "sku": "000009F_OUTER_CARTON",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "b7b086d6-1a03-4994-87d7-2254383d8007",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000,
+            "dimension_width": 10,
+            "dimension_length": 10,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d5a2a80-4c62-11ee-8739-4201c0a8580d",
+        "name": "Temporary - Bittersweet by Najla Dessert Say Cheese Box 250 gram",
+        "status": "active",
+        "sku": "000009T",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "34ba29f7-a2e2-4aae-bc69-96a6a88f8a87",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000000,
+            "dimension_width": 100,
+            "dimension_length": 100,
+            "dimension_height": 100,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "0d59e7ed-4c62-11ee-8739-4201c0a8580d",
+        "name": "Pretz BBQ Freebies",
+        "status": "active",
+        "sku": "000010F",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "1f975fb4-961b-4a84-a707-0869fb97b28a",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000000,
+            "dimension_width": 100,
+            "dimension_length": 100,
+            "dimension_height": 100,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "eb66fb9d-0688-11ee-b6fe-4201c0a85803",
+        "name": "Pretz BBQ Freebies",
+        "status": "active",
+        "sku": "000010F_OUTER_CARTON",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "1e6e13e4-9832-4c3b-a8f3-0bb3aa3315d0",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000,
+            "dimension_width": 10,
+            "dimension_length": 10,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "85c422cd-4e17-11ee-8739-4201c0a8580d",
+        "name": "Pretz Ori Freebies",
+        "status": "active",
+        "sku": "000011F",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "f25b4115-3d93-452c-8b30-8eaf7ce059c5",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000,
+            "dimension_width": 10,
+            "dimension_length": 10,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      },
+      {
+        "id": "eb6138d0-0688-11ee-b6fe-4201c0a85803",
+        "name": "Pretz Ori Freebies",
+        "status": "active",
+        "sku": "000011F_OUTER_CARTON",
+        "image_url": "url",
+        "type": "inventory",
+        "category_id": "e294dd5a-e99c-430b-ab02-9e17a706501a",
+        "tenant": {
+          "id": "b435fdd9-d4c7-499e-9b4f-5910c8d63a75",
+          "name": "Tokonow",
+          "number": "TNDCCL",
+          "__typename": "tenant_tenant"
+        },
+        "uom": [
+          {
+            "id": "8f579d2b-6572-4009-b074-e8f06a31ff74",
+            "uom_standard_id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+            "conversion_uom_id": null,
+            "conversion_ratio": 0,
+            "dimension": 1000,
+            "dimension_width": 10,
+            "dimension_length": 10,
+            "dimension_height": 10,
+            "dimension_uom": "cm",
+            "weight": 200,
+            "weight_uom": "gr",
+            "uom_standard": {
+              "id": "1d56cbd5-e0f1-411b-b7f8-68f7546c2a5e",
+              "number": "PC",
+              "name": "Piece",
+              "__typename": "product_uom_standard"
+            },
+            "__typename": "product_uom"
+          }
+        ],
+        "serial_number_management": "disabled",
+        "shelf_life_management": "disabled",
+        "lot_management": "disabled",
+        "uom_conversion_management": "disabled",
+        "__typename": "product_product"
+      }
+    ]
+  }
+}
+
+
+
+------
+
+#If you need retry logic (i.e., retrying a request that times out), this can be added with libraries like axios-retry or custom retry logic in the fetcher.
+
+const { ApolloGateway } = require('@apollo/gateway');
+const { ApolloServer } = require('@apollo/server');
+const { startStandaloneServer } = require('@apollo/server/standalone');
+const fetch = require('node-fetch'); // You can use any HTTP client library
+
+// Define your custom fetcher with a timeout
+const customFetcher = async (url, options) => {
+  const timeout = 5000; // Timeout in milliseconds (e.g., 5 seconds)
+  
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    return response;
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error(`Request to ${url} timed out`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
+
+// Set up the Apollo Gateway
+const gateway = new ApolloGateway({
+  serviceList: [
+    { name: 'users', url: 'http://localhost:4001/graphql' },
+    { name: 'products', url: 'http://localhost:4002/graphql' },
+  ],
+  fetch: customFetcher,  // Apply the custom fetcher with the timeout
+});
+
+const server = new ApolloServer({
+  gateway,
+  subscriptions: false,
+});
+
+startStandaloneServer(server).then(({ url }) => {
+  console.log(`Apollo Server running at ${url}`);
+});
+
+
+-----
+
+
+# user-service.graphql
+type User @key(fields: "id") {
+  id: ID!
+  name: String
+  email: String
+}
+
+
+# user-service.graphql
+type User @key(fields: "id") {
+  id: ID!
+  firstName: String
+  lastName: String
+  fullName: String @requires(fields: "firstName lastName")
+}
+
+
+
+-----
+
+# order-service.graphql
+type Order {
+  id: ID!
+  userId: ID!
+  totalAmount: Float
+}
+
+extend type User @key(fields: "id") {
+  id: ID! @external   # Marks the id field as external (from another service)
+  orders: [Order]
+}
+
+# atau 
+
+# order-service.graphql
+extend type User @key(fields: "id") {
+  id: ID! @external
+  fullName: String
+}
+
+----
+
+The @key directive allows you to define a unique identifier for an entity that can be resolved across different subgraphs.
+The @external directive allows a service to reference a field defined in another service without redefining it.
+The @requires directive enables a service to combine fields from its own schema to compute a field in a federated schema.
+
+
+Circular references in Apollo Federation occur when two or more subgraphs (services) need to reference each other’s types, creating a situation where type extensions or field resolution between them depend on each other. While Apollo Federation tries to resolve circular references, there are ways to structure and handle them using the @key, @external, and @requires directives 
+
+# user-service.graphql
+# Define the User type with a key that will be used to resolve the user across subgraphs
+type User @key(fields: "id") {
+  id: ID!
+  username: String!
+  posts: [Post]  # Reference to the Post type, will be resolved by the Post service
+}
+
+# Extend the Post type to link back to the User type
+extend type Post @key(fields: "id") {
+  id: ID! @external  # Mark the id field as external (defined in another subgraph)
+  userId: ID! @external  # Mark userId as external
+  user: User @requires(fields: "userId")  # Use @requires to resolve user based on userId from the Post service
+}
+
+# and
+
+# post-service.graphql
+# Define the Post type with a key that will be used to resolve the post across subgraphs
+type Post @key(fields: "id") {
+  id: ID!
+  title: String!
+  content: String!
+  userId: ID!  # The user who created the post
+}
+
+# Extend the User type in the Post service to include the posts that belong to that user
+extend type User @key(fields: "id") {
+  id: ID! @external  # Mark the id field as external (defined in the User service)
+  posts: [Post]  # Add the posts field, which resolves posts created by the user
+}
+
+# sampel query
+
+query {
+  users {
+    id
+    username
+    posts {
+      id
+      title
+      content
+    }
+  }
+}
+
+
+---- 

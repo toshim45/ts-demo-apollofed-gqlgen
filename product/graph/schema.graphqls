@@ -1,0 +1,30 @@
+scalar UUID
+
+type Product @key(fields: "id") {
+  id: UUID!
+  name: String!
+  sku: String!
+  status: String!
+  type: String!
+  tenant_id: UUID!
+  tenant: Tenant
+  uom: [Uom!]
+}
+
+type Uom {
+  id: UUID!
+  name: String!
+}
+
+extend type Tenant @key(fields: "id") {
+  id: UUID! @external
+  name: String
+  number: String
+  active: Boolean!
+}
+
+type Query {
+  products: [Product!]!
+}
+
+
