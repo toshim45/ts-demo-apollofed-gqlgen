@@ -101,3 +101,20 @@ go build -o cmd/product-gql/binary cmd/product-gql/main.go
 mkdir gateway
 cd gateway; npm init; npm install @apollo/gateway @apollo/server graphql; npm run dev &; cd ..
 ```
+
+## sample federation query
+```
+query GetProductWithTenant {
+  products {
+    name
+    sku
+    tenant {
+      number
+    }
+    uom {
+      name
+    }
+  }
+}
+
+```
