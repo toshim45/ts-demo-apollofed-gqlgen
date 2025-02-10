@@ -1,5 +1,5 @@
 help:
-	@echo "HELP: make clean|gqlgen|build|run"
+	@echo "HELP: make clean|gqlgen|build|dev-start|dev-stop"
 clean:
 	@echo "-cleaning-"
 	rm -rfv cmd/product-gql/binary
@@ -12,8 +12,16 @@ build:
 	@echo "-building-"
 	go build -o cmd/tenant-gql/binary cmd/tenant-gql/main.go
 	go build -o cmd/product-gql/binary cmd/product-gql/main.go
-dev:
+tmux-check:
+	@which tmux > /dev/null
+dev-start: tmux-check
 	@echo "-running-"
-	@echo "./cmd/tenant-gql/binary"
-	@echo "./cmd/product-gql/binary"
-	@echo "node gateway/index.js"
+	@tmux new -d -s tenant-gql-api ./cmd/tenant-gql/binary
+	@tmux new -d -s product-gql-api ./cmd/product-gql/binary
+	@tmux new -d -s gql-gateway 'node gateway/index.js'	
+
+dev-stop: tmux-check
+	@echo "-stopping-"
+	@tmux kill-session -t tenant-gql-api
+	@tmux kill-session -t product-gql-api
+	@tmux kill-session -t gql-gateway

@@ -6,21 +6,22 @@ package graph
 
 import (
 	"context"
+	"log"
 
 	"github.com/google/uuid"
 	"github.com/toshim45/demo-apollo-fed-gqlgen/product/graph/model"
 )
 
 // FindProductByID is the resolver for the findProductByID field.
-func (r *entityResolver) FindProductByID(ctx context.Context, id uuid.UUID) (*model.Product, error) {
+func (r *entityResolver) FindProductByID(ctx context.Context, id uuid.UUID) (model.Product, error) {
+	log.Println("[FindProductByID]", id)
 	return FindByID(ctx, id), nil
 }
 
 // FindTenantByID is the resolver for the findTenantByID field.
-func (r *entityResolver) FindTenantByID(ctx context.Context, id uuid.UUID) (*model.Tenant, error) {
-	return &model.Tenant{
-		ID: id,
-	}, nil
+func (r *entityResolver) FindTenantByID(ctx context.Context, id uuid.UUID) (model.Tenant, error) {
+	log.Println("[FindTenantByID]", id)
+	return model.Tenant{ID: id}, nil
 }
 
 // Entity returns EntityResolver implementation.

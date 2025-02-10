@@ -17,9 +17,9 @@ var (
 
 var UomPiece model.Uom = model.Uom{ID: uomID1, Name: "Piece"}
 
-var DataProductUom map[uuid.UUID][]*model.Uom = map[uuid.UUID][]*model.Uom{
-	productID1: {&UomPiece},
-	productID2: {&UomPiece},
+var DataProductUom map[uuid.UUID][]model.Uom = map[uuid.UUID][]model.Uom{
+	productID1: {UomPiece},
+	productID2: {UomPiece},
 }
 
 var Data map[uuid.UUID]model.Product = map[uuid.UUID]model.Product{
@@ -37,23 +37,23 @@ var Data map[uuid.UUID]model.Product = map[uuid.UUID]model.Product{
 	},
 }
 
-func FindAll(ctx context.Context) []*model.Product {
-	out := []*model.Product{}
+func FindAll(ctx context.Context) []model.Product {
+	out := []model.Product{}
 
 	for _, m := range Data {
 		if val, exist := DataProductUom[m.ID]; exist {
 			m.Uom = val
 		}
-		out = append(out, &m)
+		out = append(out, m)
 	}
 
 	return out
 }
 
-func FindByID(ctx context.Context, id uuid.UUID) *model.Product {
+func FindByID(ctx context.Context, id uuid.UUID) model.Product {
 	if val, exist := Data[id]; exist {
-		return &val
+		return val
 	}
 
-	return nil
+	return model.Product{}
 }

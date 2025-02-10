@@ -72,10 +72,10 @@ type ComplexityRoot struct {
 }
 
 type EntityResolver interface {
-	FindTenantByID(ctx context.Context, id uuid.UUID) (*model.Tenant, error)
+	FindTenantByID(ctx context.Context, id uuid.UUID) (model.Tenant, error)
 }
 type QueryResolver interface {
-	Tenants(ctx context.Context) ([]*model.Tenant, error)
+	Tenants(ctx context.Context) ([]model.Tenant, error)
 }
 
 type executableSchema struct {
@@ -542,9 +542,9 @@ func (ec *executionContext) _Entity_findTenantByID(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Tenant)
+	res := resTmp.(model.Tenant)
 	fc.Result = res
-	return ec.marshalNTenant2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenant(ctx, field.Selections, res)
+	return ec.marshalNTenant2githubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenant(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Entity_findTenantByID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -607,9 +607,9 @@ func (ec *executionContext) _Query_tenants(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Tenant)
+	res := resTmp.([]model.Tenant)
 	fc.Result = res
-	return ec.marshalNTenant2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenantᚄ(ctx, field.Selections, res)
+	return ec.marshalNTenant2ᚕgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenantᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_tenants(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3715,7 +3715,7 @@ func (ec *executionContext) marshalNTenant2githubᚗcomᚋtoshim45ᚋdemoᚑapol
 	return ec._Tenant(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTenant2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenantᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Tenant) graphql.Marshaler {
+func (ec *executionContext) marshalNTenant2ᚕgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenantᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Tenant) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3739,7 +3739,7 @@ func (ec *executionContext) marshalNTenant2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemo�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTenant2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenant(ctx, sel, v[i])
+			ret[i] = ec.marshalNTenant2githubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenant(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3757,16 +3757,6 @@ func (ec *executionContext) marshalNTenant2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemo�
 	}
 
 	return ret
-}
-
-func (ec *executionContext) marshalNTenant2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋtenantᚋgraphᚋmodelᚐTenant(ctx context.Context, sel ast.SelectionSet, v *model.Tenant) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-		return graphql.Null
-	}
-	return ec._Tenant(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNUUID2githubᚗcomᚋgoogleᚋuuidᚐUUID(ctx context.Context, v any) (uuid.UUID, error) {

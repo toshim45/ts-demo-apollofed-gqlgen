@@ -42,6 +42,7 @@ type Config struct {
 
 type ResolverRoot interface {
 	Entity() EntityResolver
+	Product() ProductResolver
 	Query() QueryResolver
 }
 
@@ -72,10 +73,7 @@ type ComplexityRoot struct {
 	}
 
 	Tenant struct {
-		Active func(childComplexity int) int
-		ID     func(childComplexity int) int
-		Name   func(childComplexity int) int
-		Number func(childComplexity int) int
+		ID func(childComplexity int) int
 	}
 
 	Uom struct {
@@ -89,11 +87,14 @@ type ComplexityRoot struct {
 }
 
 type EntityResolver interface {
-	FindProductByID(ctx context.Context, id uuid.UUID) (*model.Product, error)
-	FindTenantByID(ctx context.Context, id uuid.UUID) (*model.Tenant, error)
+	FindProductByID(ctx context.Context, id uuid.UUID) (model.Product, error)
+	FindTenantByID(ctx context.Context, id uuid.UUID) (model.Tenant, error)
+}
+type ProductResolver interface {
+	Tenant(ctx context.Context, obj *model.Product) (*model.Tenant, error)
 }
 type QueryResolver interface {
-	Products(ctx context.Context) ([]*model.Product, error)
+	Products(ctx context.Context) ([]model.Product, error)
 }
 
 type executableSchema struct {
@@ -221,33 +222,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.__resolve_entities(childComplexity, args["representations"].([]map[string]any)), true
 
-	case "Tenant.active":
-		if e.complexity.Tenant.Active == nil {
-			break
-		}
-
-		return e.complexity.Tenant.Active(childComplexity), true
-
 	case "Tenant.id":
 		if e.complexity.Tenant.ID == nil {
 			break
 		}
 
 		return e.complexity.Tenant.ID(childComplexity), true
-
-	case "Tenant.name":
-		if e.complexity.Tenant.Name == nil {
-			break
-		}
-
-		return e.complexity.Tenant.Name(childComplexity), true
-
-	case "Tenant.number":
-		if e.complexity.Tenant.Number == nil {
-			break
-		}
-
-		return e.complexity.Tenant.Number(childComplexity), true
 
 	case "Uom.id":
 		if e.complexity.Uom.ID == nil {
@@ -666,9 +646,9 @@ func (ec *executionContext) _Entity_findProductByID(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Product)
+	res := resTmp.(model.Product)
 	fc.Result = res
-	return ec.marshalNProduct2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProduct(ctx, field.Selections, res)
+	return ec.marshalNProduct2githubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProduct(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Entity_findProductByID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -739,9 +719,9 @@ func (ec *executionContext) _Entity_findTenantByID(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Tenant)
+	res := resTmp.(model.Tenant)
 	fc.Result = res
-	return ec.marshalNTenant2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐTenant(ctx, field.Selections, res)
+	return ec.marshalNTenant2githubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐTenant(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Entity_findTenantByID(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -754,12 +734,6 @@ func (ec *executionContext) fieldContext_Entity_findTenantByID(ctx context.Conte
 			switch field.Name {
 			case "id":
 				return ec.fieldContext_Tenant_id(ctx, field)
-			case "name":
-				return ec.fieldContext_Tenant_name(ctx, field)
-			case "number":
-				return ec.fieldContext_Tenant_number(ctx, field)
-			case "active":
-				return ec.fieldContext_Tenant_active(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Tenant", field.Name)
 		},
@@ -1056,7 +1030,7 @@ func (ec *executionContext) _Product_tenant(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Tenant, nil
+		return ec.resolvers.Product().Tenant(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1074,18 +1048,12 @@ func (ec *executionContext) fieldContext_Product_tenant(_ context.Context, field
 	fc = &graphql.FieldContext{
 		Object:     "Product",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
 				return ec.fieldContext_Tenant_id(ctx, field)
-			case "name":
-				return ec.fieldContext_Tenant_name(ctx, field)
-			case "number":
-				return ec.fieldContext_Tenant_number(ctx, field)
-			case "active":
-				return ec.fieldContext_Tenant_active(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Tenant", field.Name)
 		},
@@ -1116,9 +1084,9 @@ func (ec *executionContext) _Product_uom(ctx context.Context, field graphql.Coll
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Uom)
+	res := resTmp.([]model.Uom)
 	fc.Result = res
-	return ec.marshalOUom2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUomᚄ(ctx, field.Selections, res)
+	return ec.marshalOUom2ᚕgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUomᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Product_uom(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1166,9 +1134,9 @@ func (ec *executionContext) _Query_products(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Product)
+	res := resTmp.([]model.Product)
 	fc.Result = res
-	return ec.marshalNProduct2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProductᚄ(ctx, field.Selections, res)
+	return ec.marshalNProduct2ᚕgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProductᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_products(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1475,132 +1443,6 @@ func (ec *executionContext) fieldContext_Tenant_id(_ context.Context, field grap
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type UUID does not have child fields")
-		},
-	}
-	return fc, nil
-}
-
-func (ec *executionContext) _Tenant_name(ctx context.Context, field graphql.CollectedField, obj *model.Tenant) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Tenant_name(ctx, field)
-	if err != nil {
-		return graphql.Null
-	}
-	ctx = graphql.WithFieldContext(ctx, fc)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Name, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*string)
-	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) fieldContext_Tenant_name(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
-	fc = &graphql.FieldContext{
-		Object:     "Tenant",
-		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
-		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
-		},
-	}
-	return fc, nil
-}
-
-func (ec *executionContext) _Tenant_number(ctx context.Context, field graphql.CollectedField, obj *model.Tenant) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Tenant_number(ctx, field)
-	if err != nil {
-		return graphql.Null
-	}
-	ctx = graphql.WithFieldContext(ctx, fc)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Number, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*string)
-	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) fieldContext_Tenant_number(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
-	fc = &graphql.FieldContext{
-		Object:     "Tenant",
-		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
-		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
-		},
-	}
-	return fc, nil
-}
-
-func (ec *executionContext) _Tenant_active(ctx context.Context, field graphql.CollectedField, obj *model.Tenant) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Tenant_active(ctx, field)
-	if err != nil {
-		return graphql.Null
-	}
-	ctx = graphql.WithFieldContext(ctx, fc)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Active, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(bool)
-	fc.Result = res
-	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) fieldContext_Tenant_active(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
-	fc = &graphql.FieldContext{
-		Object:     "Tenant",
-		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
-		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type Boolean does not have child fields")
 		},
 	}
 	return fc, nil
@@ -3817,35 +3659,66 @@ func (ec *executionContext) _Product(ctx context.Context, sel ast.SelectionSet, 
 		case "id":
 			out.Values[i] = ec._Product_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "name":
 			out.Values[i] = ec._Product_name(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "sku":
 			out.Values[i] = ec._Product_sku(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "status":
 			out.Values[i] = ec._Product_status(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "type":
 			out.Values[i] = ec._Product_type(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "tenant_id":
 			out.Values[i] = ec._Product_tenant_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				out.Invalids++
+				atomic.AddUint32(&out.Invalids, 1)
 			}
 		case "tenant":
-			out.Values[i] = ec._Product_tenant(ctx, field, obj)
+			field := field
+
+			innerFunc := func(ctx context.Context, _ *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Product_tenant(ctx, field, obj)
+				return res
+			}
+
+			if field.Deferrable != nil {
+				dfs, ok := deferred[field.Deferrable.Label]
+				di := 0
+				if ok {
+					dfs.AddField(field)
+					di = len(dfs.Values) - 1
+				} else {
+					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
+					deferred[field.Deferrable.Label] = dfs
+				}
+				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
+					return innerFunc(ctx, dfs)
+				})
+
+				// don't run the out.Concurrently() call below
+				out.Values[i] = graphql.Null
+				continue
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		case "uom":
 			out.Values[i] = ec._Product_uom(ctx, field, obj)
 		default:
@@ -4000,15 +3873,6 @@ func (ec *executionContext) _Tenant(ctx context.Context, sel ast.SelectionSet, o
 			out.Values[i] = graphql.MarshalString("Tenant")
 		case "id":
 			out.Values[i] = ec._Tenant_id(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				out.Invalids++
-			}
-		case "name":
-			out.Values[i] = ec._Tenant_name(ctx, field, obj)
-		case "number":
-			out.Values[i] = ec._Tenant_number(ctx, field, obj)
-		case "active":
-			out.Values[i] = ec._Tenant_active(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
@@ -4484,7 +4348,7 @@ func (ec *executionContext) marshalNProduct2githubᚗcomᚋtoshim45ᚋdemoᚑapo
 	return ec._Product(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNProduct2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProductᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Product) graphql.Marshaler {
+func (ec *executionContext) marshalNProduct2ᚕgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProductᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Product) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -4508,7 +4372,7 @@ func (ec *executionContext) marshalNProduct2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemo
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNProduct2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProduct(ctx, sel, v[i])
+			ret[i] = ec.marshalNProduct2githubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProduct(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4526,16 +4390,6 @@ func (ec *executionContext) marshalNProduct2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemo
 	}
 
 	return ret
-}
-
-func (ec *executionContext) marshalNProduct2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v *model.Product) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-		return graphql.Null
-	}
-	return ec._Product(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v any) (string, error) {
@@ -4557,16 +4411,6 @@ func (ec *executionContext) marshalNTenant2githubᚗcomᚋtoshim45ᚋdemoᚑapol
 	return ec._Tenant(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTenant2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐTenant(ctx context.Context, sel ast.SelectionSet, v *model.Tenant) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-		return graphql.Null
-	}
-	return ec._Tenant(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNUUID2githubᚗcomᚋgoogleᚋuuidᚐUUID(ctx context.Context, v any) (uuid.UUID, error) {
 	res, err := graphql.UnmarshalUUID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -4582,14 +4426,8 @@ func (ec *executionContext) marshalNUUID2githubᚗcomᚋgoogleᚋuuidᚐUUID(ctx
 	return res
 }
 
-func (ec *executionContext) marshalNUom2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUom(ctx context.Context, sel ast.SelectionSet, v *model.Uom) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-		return graphql.Null
-	}
-	return ec._Uom(ctx, sel, v)
+func (ec *executionContext) marshalNUom2githubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUom(ctx context.Context, sel ast.SelectionSet, v model.Uom) graphql.Marshaler {
+	return ec._Uom(ctx, sel, &v)
 }
 
 func (ec *executionContext) unmarshalN_Any2map(ctx context.Context, v any) (map[string]any, error) {
@@ -5195,7 +5033,7 @@ func (ec *executionContext) marshalOTenant2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑa
 	return ec._Tenant(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUom2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUomᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Uom) graphql.Marshaler {
+func (ec *executionContext) marshalOUom2ᚕgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUomᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Uom) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5222,7 +5060,7 @@ func (ec *executionContext) marshalOUom2ᚕᚖgithubᚗcomᚋtoshim45ᚋdemoᚑa
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUom2ᚖgithubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUom(ctx, sel, v[i])
+			ret[i] = ec.marshalNUom2githubᚗcomᚋtoshim45ᚋdemoᚑapolloᚑfedᚑgqlgenᚋproductᚋgraphᚋmodelᚐUom(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)

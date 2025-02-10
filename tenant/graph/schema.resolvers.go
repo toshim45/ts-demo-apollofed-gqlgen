@@ -11,7 +11,7 @@ import (
 )
 
 // Tenants is the resolver for the tenants field.
-func (r *queryResolver) Tenants(ctx context.Context) ([]*model.Tenant, error) {
+func (r *queryResolver) Tenants(ctx context.Context) ([]model.Tenant, error) {
 	return FindAll(ctx), nil
 }
 

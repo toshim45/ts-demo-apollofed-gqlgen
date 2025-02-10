@@ -6,27 +6,11 @@ import (
 	"github.com/google/uuid"
 )
 
-type Product struct {
-	ID       uuid.UUID `json:"id"`
-	Name     string    `json:"name"`
-	Sku      string    `json:"sku"`
-	Status   string    `json:"status"`
-	Type     string    `json:"type"`
-	TenantID uuid.UUID `json:"tenant_id"`
-	Tenant   *Tenant   `json:"tenant,omitempty"`
-	Uom      []*Uom    `json:"uom,omitempty"`
-}
-
-func (Product) IsEntity() {}
-
 type Query struct {
 }
 
 type Tenant struct {
-	ID     uuid.UUID `json:"id"`
-	Name   *string   `json:"name,omitempty"`
-	Number *string   `json:"number,omitempty"`
-	Active bool      `json:"active"`
+	ID uuid.UUID `json:"id"`
 }
 
 func (Tenant) IsEntity() {}

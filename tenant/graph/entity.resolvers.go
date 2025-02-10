@@ -12,7 +12,7 @@ import (
 )
 
 // FindTenantByID is the resolver for the findTenantByID field.
-func (r *entityResolver) FindTenantByID(ctx context.Context, id uuid.UUID) (*model.Tenant, error) {
+func (r *entityResolver) FindTenantByID(ctx context.Context, id uuid.UUID) (model.Tenant, error) {
 	return FindByID(ctx, id), nil
 }
 

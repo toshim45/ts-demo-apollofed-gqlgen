@@ -6,16 +6,28 @@ package graph
 
 import (
 	"context"
+	"log"
 
 	"github.com/toshim45/demo-apollo-fed-gqlgen/product/graph/model"
 )
 
+// Tenant is the resolver for the tenant field.
+func (r *productResolver) Tenant(ctx context.Context, obj *model.Product) (*model.Tenant, error) {
+	log.Println("[productResolver] Tenant")
+	return &model.Tenant{ID: obj.TenantID}, nil
+}
+
 // Products is the resolver for the products field.
-func (r *queryResolver) Products(ctx context.Context) ([]*model.Product, error) {
+func (r *queryResolver) Products(ctx context.Context) ([]model.Product, error) {
+	log.Println("[queryResolver] Products")
 	return FindAll(ctx), nil
 }
+
+// Product returns ProductResolver implementation.
+func (r *Resolver) Product() ProductResolver { return &productResolver{r} }
 
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
+type productResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }

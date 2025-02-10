@@ -11,16 +11,13 @@ type Product @key(fields: "id") {
   uom: [Uom!]
 }
 
+extend type Tenant @key(fields:"id") {
+  id: UUID!
+}
+
 type Uom {
   id: UUID!
   name: String!
-}
-
-extend type Tenant @key(fields: "id") {
-  id: UUID! @external
-  name: String
-  number: String
-  active: Boolean!
 }
 
 type Query {

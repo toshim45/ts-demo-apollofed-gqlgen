@@ -1050,3 +1050,14 @@ query {
 
 
 ---- 
+
+
+query local {
+  topProducts {
+    reviews {
+      author {
+        email
+      }
+    }
+  }
+}

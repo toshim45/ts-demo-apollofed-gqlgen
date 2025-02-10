@@ -17,20 +17,20 @@ var Data map[uuid.UUID]model.Tenant = map[uuid.UUID]model.Tenant{
 	tenantID2: {ID: tenantID2, Name: "Tokonow", Number: "TKNW"},
 }
 
-func FindAll(ctx context.Context) []*model.Tenant {
-	out := []*model.Tenant{}
+func FindAll(ctx context.Context) []model.Tenant {
+	out := []model.Tenant{}
 
 	for _, m := range Data {
-		out = append(out, &m)
+		out = append(out, m)
 	}
 
 	return out
 }
 
-func FindByID(ctx context.Context, id uuid.UUID) *model.Tenant {
+func FindByID(ctx context.Context, id uuid.UUID) model.Tenant {
 	if val, exist := Data[id]; exist {
-		return &val
+		return val
 	}
 
-	return nil
+	return model.Tenant{}
 }
