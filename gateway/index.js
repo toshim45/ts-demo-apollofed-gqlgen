@@ -29,21 +29,13 @@ const customFetcher = async (url, options) => {
   }
 };
 
-// Set up the Apollo Gateway
-// const gateway = new ApolloGateway({
-//   serviceList: [
-//     { name: 'tenants', url: tenantURL },
-//     { name: 'products', url: productURL },
-//   ],
-//   fetch: customFetcher,  // Apply the custom fetcher with the timeout
-// });
-
 const gateway = new ApolloGateway({
   supergraphSdl: new IntrospectAndCompose({
     subgraphs: [
       { name: 'tenants', url: tenantURL },
       { name: 'products', url: productURL },
     ],
+    fetch: customFetcher,
   }),
 });
 
