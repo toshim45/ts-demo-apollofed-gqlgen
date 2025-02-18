@@ -18,7 +18,12 @@ dev-start: tmux-check
 	@echo "-running-"
 	@tmux new -d -s tenant-gql-api ./cmd/tenant-gql/binary
 	@tmux new -d -s product-gql-api ./cmd/product-gql/binary
-	@tmux new -d -s gql-gateway 'node --env-file=gateway/.env gateway/index.js'	
+	@tmux new -d -s gql-gateway 'node --env-file=gateway/.env gateway/index.js'
+
+dev-status: tmux-check
+	@echo "-status-"
+	@tmux ls
+	@lsof -nP -iTCP -sTCP:LISTEN
 
 dev-stop: tmux-check
 	@echo "-stopping-"

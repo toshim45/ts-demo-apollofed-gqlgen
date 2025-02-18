@@ -1,4 +1,4 @@
-const { ApolloGateway } = require('@apollo/gateway');
+const { ApolloGateway, IntrospectAndCompose } = require('@apollo/gateway');
 const { ApolloServer } = require('@apollo/server');
 const { startStandaloneServer } = require('@apollo/server/standalone');
 const fetch = require('node-fetch'); // You can use any HTTP client library
@@ -30,12 +30,21 @@ const customFetcher = async (url, options) => {
 };
 
 // Set up the Apollo Gateway
+// const gateway = new ApolloGateway({
+//   serviceList: [
+//     { name: 'tenants', url: tenantURL },
+//     { name: 'products', url: productURL },
+//   ],
+//   fetch: customFetcher,  // Apply the custom fetcher with the timeout
+// });
+
 const gateway = new ApolloGateway({
-  serviceList: [
-    { name: 'tenants', url: tenantURL },
-    { name: 'products', url: productURL },
-  ],
-  fetch: customFetcher,  // Apply the custom fetcher with the timeout
+  supergraphSdl: new IntrospectAndCompose({
+    subgraphs: [
+      { name: 'tenants', url: tenantURL },
+      { name: 'products', url: productURL },
+    ],
+  }),
 });
 
 const server = new ApolloServer({
